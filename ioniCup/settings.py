@@ -13,7 +13,7 @@ SECRET_KEY = '+iit&3+f@8p1jxdtspxiqf6y82meer#fme5catk-d+j+42j)e5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
     'qr_code',
     'skeleton',
     'accounts',
@@ -66,8 +65,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ioniCup.wsgi.application'
-
-ASGI_APPLICATION = 'ioniCup.routing.application'
 
 
 # Database
