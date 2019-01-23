@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+  <h1>Struttura dati</h1>
+  <div>
+    {% for year in years %}
+      <div>
+        <h2><a href="{% url 'skeleton:year_detail' year_slug=year.slug %}">{{ year }}</a></h2>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+  <h1>{{ year }}</h1>
+  <div>
+    {% for team in teams %}
+      <div>
+        <h2><a href="{% url 'skeleton:team_detail' year_slug=year.slug team_slug=team.slug %}">{{ team.slug }}</a></h2>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
