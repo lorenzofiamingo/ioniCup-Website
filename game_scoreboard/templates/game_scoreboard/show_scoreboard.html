@@ -1,0 +1,83 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{% static 'show_scoreboard.css' %}"/>
+
+  <style media="screen">
+    body { background-image: linear-gradient(to right, {{ match.sb_color_A }}, {{ match.sb_color_B }}); }
+  </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <nav>
+    <div class="container">
+      <div class="grid-container">
+        <div class="name name-A">{{ match.team_A.short_name }}</div>
+        <div class="name name-B">{{ match.team_B.short_name }}</div>
+        <div class="city city-A">{{ match.team_A.city }}</div>
+        <div class="city city-B">{{ match.team_B.city }}</div>
+        <div class="current-sixth"><span>PRIMO TEMPO</span></div>
+        <div class="time"><span>{{ match.sb_timer }}</span></div>
+        <div class="label label-1"><span>PARZIALE</span></div>
+        <div class="partial partial-A"> 32 </div>
+        <div class="partial partial-B"> 23 </div>
+        <div class="label label-2"><span>PUNTEGGIO</span></div>
+        <div class="sixth-label n1-sixth-label">PRIMO TEMPO</div>
+        <div class="sixth-label n2-sixth-label">SECONDO TEMPO</div>
+        <div class="sixth-label n3-sixth-label">TERZO TEMPO</div>
+        <div class="sixth-label n4-sixth-label">QUARTO TEMPO</div>
+        <div class="sixth-label n5-sixth-label">QUINTO TEMPO</div>
+        <div class="sixth-label n6-sixth-label">SESTO TEMPO</div>
+        <div class="sixth-label n7-sixth-label">SUPPLEMENTARE</div>
+        <div class="sixth-A n1-sixth-A">11</div>
+        <div class="sixth-A n2-sixth-A">12</div>
+        <div class="sixth-A n3-sixth-A">13</div>
+        <div class="sixth-A n4-sixth-A">14</div>
+        <div class="sixth-A n5-sixth-A">15</div>
+        <div class="sixth-A n6-sixth-A">16</div>
+        <div class="sixth-A n7-sixth-A">17</div>
+        <div class="sixth-B n1-sixth-B">11</div>
+        <div class="sixth-B n2-sixth-B">12</div>
+        <div class="sixth-B n3-sixth-B">13</div>
+        <div class="sixth-B n4-sixth-B">14</div>
+        <div class="sixth-B n5-sixth-B">15</div>
+        <div class="sixth-B n6-sixth-B">16</div>
+        <div class="sixth-B n7-sixth-B">17</div>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+
+  console.log(window.location)
+  var loc = window.location
+  var wsStart = 'ws://'
+  if (loc.protocol == 'https:') {
+    wsStart = 'wss://'
+  }
+  var endpoint = wsStart + loc.host + loc.pathname
+  console.log(endpoint)
+
+  var socket = new WebSocket(endpoint)
+
+  socket.onmessage = function(e){
+    console.log('message', e)
+  }
+  socket.onopen = function(e){
+    console.log('open', e)
+  }
+  socket.onerror = function(e){
+    console.log('error', e)
+  }
+  socket.onclose = function(e){
+    console.log('close', e)
+  }
+</script>
+{% endblock %}

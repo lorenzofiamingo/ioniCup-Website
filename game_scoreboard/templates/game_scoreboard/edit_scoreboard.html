@@ -1,0 +1,58 @@
+{% extends 'base_layout.html' %}
+{% load static from staticfiles %}
+
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{% static 'edit_scoreboard.css' %}"/>
+  <style media="screen">
+    .container { background-image: linear-gradient(to right, {{ match.sb_color_A }}, {{ match.sb_color_B }}); }
+  </style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+  <nav>
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        <div class="grid-container">
+          {{ match_form.id }}
+          <input type="submit" value="Aggiungi/Salva">
+          <div class="name name-A">{{ match.team_A.short_name }}</div>
+          <div class="name name-B">{{ match.team_B.short_name }}</div>
+          <div class="city city-A">Maglia: {{ match_form.sb_color_A }}</div>
+          <div class="city city-B">Maglia: {{ match_form.sb_color_B }}</div>
+          <div class="current-sixth"><span>PRIMO TEMPO</span></div>
+          <div class="time"><span>{{ match_form.sb_timer }}</span></div>
+          <div class="label label-1"><span>PARZIALE</span></div>
+          <div class="partial partial-A"><div>{{ match_form.sb_partial_A }}</div></div>
+          <div class="partial partial-B"><div>{{ match_form.sb_partial_B }}</div></div>
+          <div class="label label-2"><span>PUNTEGGIO</span></div>
+          <div class="sixth-label n1-sixth-label">PRIMO TEMPO</div>
+          <div class="sixth-label n2-sixth-label">SECONDO TEMPO</div>
+          <div class="sixth-label n3-sixth-label">TERZO TEMPO</div>
+          <div class="sixth-label n4-sixth-label">QUARTO TEMPO</div>
+          <div class="sixth-label n5-sixth-label">QUINTO TEMPO</div>
+          <div class="sixth-label n6-sixth-label">SESTO TEMPO</div>
+          <div class="sixth-label n7-sixth-label">SUPPLEMENTARE</div>
+          <div class="sixth-A n1-sixth-A">{{ match_form.sb_1_sixth_A }}</div>
+          <div class="sixth-A n2-sixth-A">{{ match_form.sb_2_sixth_A }}</div>
+          <div class="sixth-A n3-sixth-A">{{ match_form.sb_3_sixth_A }}</div>
+          <div class="sixth-A n4-sixth-A">{{ match_form.sb_4_sixth_A }}</div>
+          <div class="sixth-A n5-sixth-A">{{ match_form.sb_5_sixth_A }}</div>
+          <div class="sixth-A n6-sixth-A">{{ match_form.sb_6_sixth_A }}</div>
+          <div class="sixth-A n7-sixth-A">{{ match_form.sb_7_sixth_A }}</div>
+          <div class="sixth-B n1-sixth-B">{{ match_form.sb_1_sixth_B }}</div>
+          <div class="sixth-B n2-sixth-B">{{ match_form.sb_2_sixth_B }}</div>
+          <div class="sixth-B n3-sixth-B">{{ match_form.sb_3_sixth_B }}</div>
+          <div class="sixth-B n4-sixth-B">{{ match_form.sb_4_sixth_B }}</div>
+          <div class="sixth-B n5-sixth-B">{{ match_form.sb_5_sixth_B }}</div>
+          <div class="sixth-B n6-sixth-B">{{ match_form.sb_6_sixth_B }}</div>
+          <div class="sixth-B n7-sixth-B">{{ match_form.sb_7_sixth_B }}</div>
+        </div>
+      </form>
+    </div>
+  </nav>
+{% endblock %}
