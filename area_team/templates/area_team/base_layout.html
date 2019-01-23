@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+  <h1>AREA {{team|upper|default:'SQUADRA'}}</h1>
+  {% block area_team %}
+    <p>
+      Questa è l'area che ti permette di modificare le squadre durante il torneo...
+      sembra però che il tuo utente non sia collegato a nessuna squadra.
+      Effettua il logout ed entra con un utente idoneo.
+    </p>
+  {% endblock %}
+{% endblock %}

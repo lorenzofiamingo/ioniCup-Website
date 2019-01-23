@@ -1,0 +1,22 @@
+{% extends 'area_team/base_layout.html' %}
+
+{% block area_team %}
+  <form method="post" action="">
+    {% csrf_token %}
+    <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+    <h4>Ricordati di fare javascript in modo tale che in aggiungi giocatore se riempi il nome aggiungi required nell'input del cognome e l'inverso</h4>
+
+    <h2>Squadre</h2>
+    {% for hidden in team_form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for field in team_form.visible_fields %}
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+    {% endfor %}
+    <br>
+    <input type="submit" value="Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+{% endblock %}

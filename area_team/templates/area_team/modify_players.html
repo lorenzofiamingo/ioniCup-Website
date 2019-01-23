@@ -1,0 +1,35 @@
+{% extends 'area_team/base_layout.html' %}
+
+{% block area_team %}
+  <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    <h2>Giocatori</h2>
+    {{ player_formset.management_form }}
+    {% for player_form in player_formset %}
+      {% if forloop.last %}
+        <h5>Nuovo giocatore:</h5>
+      {% endif %}
+      {% for hidden in player_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% if not forloop.last %}
+          <legend>{{ player_form.first_name.value }} {{ player_form.last_name.value }}</legend>
+        {% endif %}
+        {% for field in player_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+{% endblock %}

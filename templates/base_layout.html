@@ -1,0 +1,48 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ioniCup</title>
+    {% block stylesheet %}
+      <link rel="stylesheet" type="text/css" href="{% static 'base_layout.css' %}"/>
+    {% endblock %}
+  </head>
+  <body>
+
+    <header>
+      {% block header %}
+        <nav>
+          <a href="{% url 'home' %}">Home</a> |
+          <a href="{% url 'area_team:home' %}">Area Squadre</a> |
+          <a href="{% url 'area_master:home' %}">Area Master</a> |
+          <a href="{% url 'area_scorekeeper:home' %}">Area Segnapunti</a> |
+          <a href="{% url 'admin:index' %}">Admin</a> |
+          {% if user.is_authenticated %}
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+          {% else %}
+            <a href="{% url 'accounts:signup' %}">Signup</a> |
+            <a href="{% url 'accounts:login' %}">Login</a>
+          {% endif %}
+        </nav>
+      {% endblock %}
+    </header>
+
+    <div class="content">
+      {% block content %}
+        <h1>HOME</h1>
+      {% endblock %}
+    </div>
+
+    <footer>
+      {% block footer %}
+      <h4>COPYRIGHT © 2018 IONICUP. TUTTI I DIRITTI RISERVATI.</h4>
+      {% endblock %}
+    </footer>
+
+    {% block script %}
+    {% endblock %}
+
+  </body>
+</html>

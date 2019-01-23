@@ -1,0 +1,36 @@
+{% extends 'area_team/base_layout.html' %}
+
+{% block area_team %}
+  <h2>Giocatori</h2>
+  {% block player %}
+    {% for player in players %}
+      <h7>{{ player }}</h7>
+      <br>
+    {% endfor %}
+    <form>
+      <button formaction="{% url 'area_team:modify_players' %}">Aggiungi/Modifica</button>
+    </form>
+  {% endblock %}
+
+  <h2>Allenatori</h2>
+  {% block coach %}
+    {% for coach in coaches %}
+      <h7>{{ coach }}</h7>
+      <br>
+    {% endfor %}
+    <form>
+      <button formaction="{% url 'area_team:modify_coaches' %}">Aggiungi/Modifica</button>
+    </form>
+  {% endblock %}
+
+  <h2>Specifiche squadra</h2>
+  {% block team %}
+    <h7>{{ team.name }}</h7><br>
+    <h7>{{ team.short_name }}</h7><br>
+    <h7>{{ team.city }}</h7><br>
+
+  {% endblock %}
+  <form>
+    <button formaction="{% url 'area_team:modify_team' %}">Aggiungi/Modifica</button>
+  </form>
+{% endblock %}

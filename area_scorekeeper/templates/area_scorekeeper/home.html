@@ -1,0 +1,10 @@
+{% extends 'area_scorekeeper/base_layout.html' %}
+
+{% block area_scorekeeper %}
+  <h3>Seleziona partita</h3>
+  {% for match in matches %}
+    <a href="{% url 'game_scoreboard:edit' match_number=match.number %}">
+      <p>Nº{{ match.number }} | {{ match.court }} | {{ match }}</p>
+    </a>
+  {% endfor %}
+{% endblock %}

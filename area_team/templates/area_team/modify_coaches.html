@@ -1,0 +1,31 @@
+{% extends 'area_team/base_layout.html' %}
+
+{% block area_team %}
+  <form method="post" action="">
+    {% csrf_token %}
+    <h2>Allenatori</h2>
+    {{ coach_formset.management_form }}
+    {% for coach_form in coach_formset %}
+      {% if forloop.last %}
+        <h5>Nuovo allenatore:</h5>
+      {% endif %}
+      {% for hidden in coach_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% if not forloop.last %}
+          <legend>{{ coach_form.first_name.value }} {{ coach_form.last_name.value }}</legend>
+        {% endif %}
+        {% for field in coach_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+            {% endif %}
+            {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+  </form>
+{% endblock %}
