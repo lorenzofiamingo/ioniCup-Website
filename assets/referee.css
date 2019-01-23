@@ -1,0 +1,134 @@
+@font-face {
+  font-family: Arial;
+  src: url(ArialRoundedBold.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Arial;
+  color: rgb(35, 40, 80);
+  border-color: rgb(35, 40, 80);
+}
+
+body {
+}
+
+table {
+  border-color: green;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+td {
+  font-size: 1mm;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+tr {
+  overflow: : hidden;
+}
+
+td div {
+  vertical-align: bottom;
+  background-color: transparent;
+  height: 3.5mm;
+  line-height: 3.5mm;
+}
+
+td div span {
+  display: inline-block;
+  text-align: middle;
+  line-height: normal;
+}
+
+td.logo div {
+  height: 20mm;
+}
+td.logo img {
+  height: 100%;
+}
+
+.T1 {font-size: 4mm; white-space: normal;}
+.T1 div {height: 10mm; line-height: 10mm;}
+.T2 {font-size: 15mm;}
+.T2 div {height: 20mm; line-height: 22mm;}
+.T3 {font-size: 2mm;}
+.T4 {font-size: 2mm; text-align: left; text-indent: 1mm}
+.T5 {font-size: 3mm;}
+.T6 {font-size: 2mm;}
+.T7 {font-size: 3mm;}
+.T8 {font-size: 3mm;}
+.T9 {font-size: 1.5mm;}
+.T10 {font-size: 2mm; text-align: left; text-indent: 1mm}
+.T11 {font-size: 1.5mm;}
+.T12 {font-size: 1.5mm;}
+.T13 {font-size: 2mm;}
+.T14 {font-size: 1.3mm;}
+.T15 {font-size: 1.5mm;}
+.T16 {font-size: 4mm;}
+.T17 {font-size: 2mm;}
+.T18 {font-size: 2mm;}
+.T19 {font-size: 3mm;}
+.T20 {font-size: 2mm;}
+.T21 {font-size: 3mm;}
+.T22 {font-size: 2.5mm;}
+
+
+
+.t1 {border-top: 0.05mm solid}
+.b1 {border-bottom: 0.05mm solid}
+.l1 {border-left: 0.05mm solid}
+.r1 {border-right: 0.05mm solid}
+
+.t2 {border-top: 0.1mm solid}
+.b2 {border-bottom: 0.1mm solid}
+.l2 {border-left: 0.1mm solid}
+.r2 {border-right: 0.1mm solid}
+
+.t3 {border-top: 0.15mm solid}
+.b3 {border-bottom: 0.15mm solid}
+.l3 {border-left: 0.15mm solid}
+.r3 {border-right: 0.15mm solid}
+
+.t4 {border-top: 0.4mm solid}
+.b4 {border-bottom: 0.4mm solid}
+.l4 {border-left: 0.4mm solid}
+.r4 {border-right: 0.4mm solid}
+
+.t5 {border-top: 0.5mm solid}
+.b5 {border-bottom: 0.5mm solid}
+.l5 {border-left: 0.5mm solid}
+.r5 {border-right: 0.5mm solid}
+
+.t6 {border-top: 0.6mm solid}
+.b6 {border-bottom: 0.6mm solid}
+.l6 {border-left: 0.6mm solid}
+.r6 {border-right: 0.6mm solid}
+
+.t7 {border-top: 0.7mm solid}
+.b7 {border-bottom: 0.7mm solid}
+.l7 {border-left: 0.7mm solid}
+.r7 {border-right: 0.7mm solid}
+
+.t8 {border-top: 0.8mm solid}
+.b8 {border-bottom: 0.8mm solid}
+.l8 {border-left: 0.8mm solid}
+.r8 {border-right: 0.8mm solid}
+
+page[size="A4"] {
+  background: white;
+  width: 297mm;
+  height: 210mm;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}

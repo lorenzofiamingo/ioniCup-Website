@@ -1,0 +1,2576 @@
+{% load static from staticfiles %}
+{% load qr_code %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Referto</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'referee.css' %}"/>
+    <script type="text/javascript" src="{% static 'html2canvas.js' %}"></script>
+    <script type="text/javascript" src="{% static 'FileSaver.js' %}"></script>
+    <script type="text/javascript" src="{% static 'referee.js' %}"></script>
+  </head>
+
+  <body>
+    <page size="A4">
+      <table id="capture">
+        <tbody>
+          <tr>
+            <td colspan="105" class="t8 l8 r8"><div><span></span></div></td>
+          </tr>
+          <!-- IMMAGINE -->
+          <tr>
+            <td class="l8"><div><span></span></div></td>
+            <td colspan="20" class="t8 b8 l8 T1"><div><span>{{ match.team_A }}<br>{{ match.team_B }}</span></div></td>
+            <td colspan="63" class="t8 b8 logo"><div><img src="{% static 'Logo.png' %}"></div><span></td>
+            <td colspan="10" class="t8 b8 T2"><div><span>Nº {{ num }}</span></div></td>
+            <td colspan="10" class="t8 b8 r8 T2 qr"><div><span>{% qr_from_text "http://127.0.0.1:8000" size="6" version="1" %}</span></div></td>
+            <td class="r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="105" class="l8 r8"><div><span></span></div></td>
+          </tr>
+          <!-- SPECIFICHE PARTITA -->
+          <tr>
+            <td rowspan="2" class="l8"><div><span></span></div></td>
+            <td colspan="5" class="t8 b5 l8 r3 T3"><div><span>GARA Nº</span></div></td>
+            <td colspan="4" class="t8 b5 r5 T3"><div><span>{{ num }}</span></div></td>
+            <td colspan="5" class="t8 b5 r3 T3"><div><span>DATA</span></div></td>
+            <td colspan="4" class="t8 b5 r8 T3"><div><span></span></div></td>
+            <td rowspan="2"><div><span></span></div></td>
+            <td colspan="12" class="t8 b5 l8 r3 T3"><div><span>SQUADRA "A"</span></div></td>
+            <td colspan="27" class="t8 b5 r8 T3"><div><span>{{match.team_A}}</span></div></td>
+            <td rowspan="2"><div><span></span></div></td>
+            <td colspan="8" class="t8 b5 l8 r3 T3"><div><span>MINIARBITRO 1</span></div></td>
+            <td colspan="14" class="t8 b5 r5 T3"><div><span></span></div></td>
+            <td colspan="8" class="t8 b5 r3 T3"><div><span>SEGNAPUNTI</span></div></td>
+            <td colspan="14" class="t8 b5 r8 T3"><div><span></span></div></td>
+            <td rowspan="2" class="r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="5" class="b8 l8 r3 T3"><div><span>CAMPO</span></div></td>
+            <td colspan="4" class="b8 r5 T3"><div><span>{{court}}</span></div></td>
+            <td colspan="5" class="b8 r3 T3"><div><span>ORA</span></div></td>
+            <td colspan="4" class="b8 r8 T3"><div><span></span></div></td>
+            <td colspan="12" class="b8 l8 r3 T3"><div><span>SQUADRA "B"</span></div></td>
+            <td colspan="27" class="b8 r8 T3"><div><span>{{match.team_B}}</span></div></td>
+            <td colspan="8" class="b8 l8 r3 T3"><div><span>MINIARBITRO 2</span></div></td>
+            <td colspan="14" class="b8 r5 T3"><div><span></span></div></td>
+            <td colspan="8" class="b8 r3 T3"><div><span>CRONOMETRISTA</span></div></td>
+            <td colspan="14" class="b8 r8 T3"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="105" class="l8 r8"><div><span></span></div></td>
+          </tr>
+          <!-- SQUADRA A -->
+          <tr>
+            <td rowspan="16" class="l8"><div><span></span></div></td>
+            <td colspan="6" class="t8 b6 l8 T4"><div><span>SQUADRA</span></div></td>
+            <td colspan="13" class="t8 b6 r6 T4"><div><span>{{match.team_A}}</span></div></td>
+            <td colspan="2" rowspan="2" class="t8 b6 r6 T5"><div><span>Nº</span></div></td>
+            <td colspan="7" class="t8 b5 r6 T6"><div><span>ENTRATE</span></div></td>
+            <td colspan="5" rowspan="2" class="t8 b6 r6 T7"><div><span>FALLI</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>PRIMO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>SECONDO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>TERZO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>QUARTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>QUINTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>SESTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r8 T8"><div><span>SUPPLEMENTARE</span></div></td>
+            <td rowspan="16" class="r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="6" class="b6 l8 T4"><div><span>MAGLIA</span></div></td>
+            <td colspan="13" class="b6 r6 T4"><div><span></span></div></td>
+            <td class="b6 r3 T9"><div><span>1</span></div></td>
+            <td class="b6 r3 T9"><div><span>2</span></div></td>
+            <td class="b6 r3 T9"><div><span>3</span></div></td>
+            <td class="b6 r3 T9"><div><span>4</span></div></td>
+            <td class="b6 r3 T9"><div><span>5</span></div></td>
+            <td class="b6 r3 T9"><div><span>6</span></div></td>
+            <td class="b6 r6 T9"><div><span>TS</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.0.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.0.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.1.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.1.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.2.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.2.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.3.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.3.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.4.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.4.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.5.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.5.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.6.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.6.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.7.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.7.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.8.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.8.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.9.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.9.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersA.10.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersA.10.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b6 r6 l8 T10"><div><span>{{ playersA.11.0 }}</span></div></td>
+            <td colspan="2" class="b6 r6 T22"><div><span>{{ playersA.11.1 }}</span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="9" class="b5 l8 T4"><div><span>ISTRUTTORE 1</span></div></td>
+            <td colspan="10" class="b5 r6 T4"><div><span>{{ coachesA.0.0 }}</span></div></td>
+            <td colspan="5" class="b5 T4"><div><span>CELLULARE</span></div></td>
+            <td colspan="7" class="b5 r6 T4"><div><span>{{ coachesA.0.1 }}</span></div></td>
+            <td colspan="2" class="b5 r4 T11"><div><span>FALLI</span></div></td>
+            <td class="b5 r3"><div><span></span></div></td>
+            <td class="b5 r6"><div><span></span></div></td>
+            <td colspan="5" class="b4 r6 T12"><div><span>SOSPENSIONI</span></div></td>
+            <td colspan="3" rowspan="2" class="b8 r4 T13"><div><span>PUNTI</span></div></td>
+            <td class="b3 r3 T14"><div><span>1</span></div></td>
+            <td class="b3 r3 T14"><div><span>2</span></div></td>
+            <td class="b3 r3 T14"><div><span>3</span></div></td>
+            <td class="b3 r3 T14"><div><span>4</span></div></td>
+            <td class="b3 r3 T14"><div><span>5</span></div></td>
+            <td class="b3 r3 T14"><div><span>6</span></div></td>
+            <td class="b3 r3 T14"><div><span>7</span></div></td>
+            <td class="b3 r3 T14"><div><span>8</span></div></td>
+            <td class="b3 r3 T14"><div><span>9</span></div></td>
+            <td class="b3 r3 T14"><div><span>10</span></div></td>
+            <td class="b3 r3 T14"><div><span>11</span></div></td>
+            <td class="b3 r3 T14"><div><span>12</span></div></td>
+            <td class="b3 r3 T14"><div><span>13</span></div></td>
+            <td class="b3 r3 T14"><div><span>14</span></div></td>
+            <td class="b3 r3 T14"><div><span>15</span></div></td>
+            <td class="b3 r3 T14"><div><span>16</span></div></td>
+            <td class="b3 r3 T14"><div><span>17</span></div></td>
+            <td class="b3 r3 T14"><div><span>18</span></div></td>
+            <td class="b3 r3 T14"><div><span>19</span></div></td>
+            <td class="b3 r3 T14"><div><span>20</span></div></td>
+            <td class="b3 r3 T14"><div><span>21</span></div></td>
+            <td class="b3 r3 T14"><div><span>22</span></div></td>
+            <td class="b3 r3 T14"><div><span>23</span></div></td>
+            <td class="b3 r3 T14"><div><span>24</span></div></td>
+            <td class="b3 r3 T14"><div><span>25</span></div></td>
+            <td class="b3 r3 T14"><div><span>26</span></div></td>
+            <td class="b3 r3 T14"><div><span>27</span></div></td>
+            <td class="b3 r3 T14"><div><span>28</span></div></td>
+            <td class="b3 r3 T14"><div><span>29</span></div></td>
+            <td class="b3 r3 T14"><div><span>30</span></div></td>
+            <td class="b3 r3 T14"><div><span>31</span></div></td>
+            <td class="b3 r3 T14"><div><span>32</span></div></td>
+            <td class="b3 r3 T14"><div><span>33</span></div></td>
+            <td class="b3 r3 T14"><div><span>34</span></div></td>
+            <td class="b3 r3 T14"><div><span>35</span></div></td>
+            <td class="b3 r3 T14"><div><span>36</span></div></td>
+            <td class="b3 r3 T14"><div><span>37</span></div></td>
+            <td class="b3 r3 T14"><div><span>38</span></div></td>
+            <td class="b3 r3 T14"><div><span>39</span></div></td>
+            <td class="b3 r3 T14"><div><span>40</span></div></td>
+            <td class="b3 r3 T14"><div><span>41</span></div></td>
+            <td class="b3 r3 T14"><div><span>42</span></div></td>
+            <td class="b3 r3 T14"><div><span>43</span></div></td>
+            <td class="b3 r3 T14"><div><span>44</span></div></td>
+            <td class="b3 r3 T14"><div><span>45</span></div></td>
+            <td class="b3 r3 T14"><div><span>46</span></div></td>
+            <td class="b3 r3 T14"><div><span>47</span></div></td>
+            <td class="b3 r3 T14"><div><span>48</span></div></td>
+            <td class="b3 r3 T14"><div><span>49</span></div></td>
+            <td class="b3 r3 T14"><div><span>50</span></div></td>
+            <td class="b3 r3 T14"><div><span>51</span></div></td>
+            <td class="b3 r3 T14"><div><span>52</span></div></td>
+            <td class="b3 r3 T14"><div><span>53</span></div></td>
+            <td class="b3 r3 T14"><div><span>54</span></div></td>
+            <td class="b3 r3 T14"><div><span>55</span></div></td>
+            <td class="b3 r3 T14"><div><span>56</span></div></td>
+            <td class="b3 r3 T14"><div><span>57</span></div></td>
+            <td class="b3 r3 T14"><div><span>58</span></div></td>
+            <td class="b3 r3 T14"><div><span>59</span></div></td>
+            <td class="b3 r8 T14"><div><span>60</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="9" class="b8 l8 T4"><div><span>ISTRUTTORE 2</span></div></td>
+            <td colspan="10" class="b8 r6 T4"><div><span>{{ coachesA.1.0 }}</span></div></td>
+            <td colspan="5" class="b8 T4"><div><span>CELLULARE</span></div></td>
+            <td colspan="7" class="b8 r6 T4"><div><span>{{ coachesA.1.1 }}</span></div></td>
+            <td colspan="2" class="b8 r4 T11"><div><span>FALLI</span></div></td>
+            <td class="b8 r3"><div><span></span></div></td>
+            <td class="b8 r6"><div><span></span></div></td>
+            <td class="b8 r3 T15"><div><span>1</span></div></td>
+            <td class="b8 r3 T15"><div><span>2</span></div></td>
+            <td class="b8 r3 T15"><div><span>3</span></div></td>
+            <td class="b8 r3 T15"><div><span>4</span></div></td>
+            <td class="b8 r6 T15"><div><span>5</span></div></td>
+            <td class="b8 r3 T14"><div><span>61</span></div></td>
+            <td class="b8 r3 T14"><div><span>62</span></div></td>
+            <td class="b8 r3 T14"><div><span>63</span></div></td>
+            <td class="b8 r3 T14"><div><span>64</span></div></td>
+            <td class="b8 r3 T14"><div><span>65</span></div></td>
+            <td class="b8 r3 T14"><div><span>66</span></div></td>
+            <td class="b8 r3 T14"><div><span>67</span></div></td>
+            <td class="b8 r3 T14"><div><span>68</span></div></td>
+            <td class="b8 r3 T14"><div><span>69</span></div></td>
+            <td class="b8 r3 T14"><div><span>70</span></div></td>
+            <td class="b8 r3 T14"><div><span>71</span></div></td>
+            <td class="b8 r3 T14"><div><span>72</span></div></td>
+            <td class="b8 r3 T14"><div><span>73</span></div></td>
+            <td class="b8 r3 T14"><div><span>74</span></div></td>
+            <td class="b8 r3 T14"><div><span>75</span></div></td>
+            <td class="b8 r3 T14"><div><span>76</span></div></td>
+            <td class="b8 r3 T14"><div><span>77</span></div></td>
+            <td class="b8 r3 T14"><div><span>78</span></div></td>
+            <td class="b8 r3 T14"><div><span>79</span></div></td>
+            <td class="b8 r3 T14"><div><span>80</span></div></td>
+            <td class="b8 r3 T14"><div><span>81</span></div></td>
+            <td class="b8 r3 T14"><div><span>82</span></div></td>
+            <td class="b8 r3 T14"><div><span>83</span></div></td>
+            <td class="b8 r3 T14"><div><span>84</span></div></td>
+            <td class="b8 r3 T14"><div><span>85</span></div></td>
+            <td class="b8 r3 T14"><div><span>86</span></div></td>
+            <td class="b8 r3 T14"><div><span>87</span></div></td>
+            <td class="b8 r3 T14"><div><span>88</span></div></td>
+            <td class="b8 r3 T14"><div><span>89</span></div></td>
+            <td class="b8 r3 T14"><div><span>90</span></div></td>
+            <td class="b8 r3 T14"><div><span>91</span></div></td>
+            <td class="b8 r3 T14"><div><span>92</span></div></td>
+            <td class="b8 r3 T14"><div><span>93</span></div></td>
+            <td class="b8 r3 T14"><div><span>94</span></div></td>
+            <td class="b8 r3 T14"><div><span>95</span></div></td>
+            <td class="b8 r3 T14"><div><span>96</span></div></td>
+            <td class="b8 r3 T14"><div><span>97</span></div></td>
+            <td class="b8 r3 T14"><div><span>98</span></div></td>
+            <td class="b8 r3 T14"><div><span>99</span></div></td>
+            <td class="b8 r3 T14"><div><span>100</span></div></td>
+            <td class="b8 r3 T14"><div><span>101</span></div></td>
+            <td class="b8 r3 T14"><div><span>102</span></div></td>
+            <td class="b8 r3 T14"><div><span>103</span></div></td>
+            <td class="b8 r3 T14"><div><span>104</span></div></td>
+            <td class="b8 r3 T14"><div><span>105</span></div></td>
+            <td class="b8 r3 T14"><div><span>106</span></div></td>
+            <td class="b8 r3 T14"><div><span>107</span></div></td>
+            <td class="b8 r3 T14"><div><span>108</span></div></td>
+            <td class="b8 r3 T14"><div><span>109</span></div></td>
+            <td class="b8 r3 T14"><div><span>110</span></div></td>
+            <td class="b8 r3 T14"><div><span>111</span></div></td>
+            <td class="b8 r3 T14"><div><span>112</span></div></td>
+            <td class="b8 r3 T14"><div><span>113</span></div></td>
+            <td class="b8 r3 T14"><div><span>114</span></div></td>
+            <td class="b8 r3 T14"><div><span>115</span></div></td>
+            <td class="b8 r3 T14"><div><span>116</span></div></td>
+            <td class="b8 r3 T14"><div><span>117</span></div></td>
+            <td class="b8 r3 T14"><div><span>118</span></div></td>
+            <td class="b8 r3 T14"><div><span>119</span></div></td>
+            <td class="b8 r8 T14"><div><span>120</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="105" class="l8 r8"><div><span></span></div></td>
+          </tr>
+          <!-- SQUADRA B -->
+          <tr>
+            <td rowspan="16" class="l8"><div><span></span></div></td>
+            <td colspan="6" class="t8 b6 l8 T4"><div><span>SQUADRA</span></div></td>
+            <td colspan="13" class="t8 b6 r6 T4"><div><span>{{match.team_B}}</span></div></td>
+            <td colspan="2" rowspan="2" class="t8 b6 r6 T5"><div><span>Nº</span></div></td>
+            <td colspan="7" class="t8 b5 r6 T6"><div><span>ENTRATE</span></div></td>
+            <td colspan="5" rowspan="2" class="t8 b6 r6 T7"><div><span>FALLI</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>PRIMO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>SECONDO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>TERZO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>QUARTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>QUINTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r6 T8"><div><span>SESTO TEMPO</span></div></td>
+            <td colspan="10" rowspan="2" class="t8 b6 r8 T8"><div><span>SUPPLEMENTARE</span></div></td>
+            <td rowspan="16" class="r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="6" class="b6 l8 T4"><div><span>MAGLIA</span></div></td>
+            <td colspan="13" class="b6 r6 T4"><div><span></span></div></td>
+            <td class="b6 r3 T9"><div><span>1</span></div></td>
+            <td class="b6 r3 T9"><div><span>2</span></div></td>
+            <td class="b6 r3 T9"><div><span>3</span></div></td>
+            <td class="b6 r3 T9"><div><span>4</span></div></td>
+            <td class="b6 r3 T9"><div><span>5</span></div></td>
+            <td class="b6 r3 T9"><div><span>6</span></div></td>
+            <td class="b6 r6 T9"><div><span>TS</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.0.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.0.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.1.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.1.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.2.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.2.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.3.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.3.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.4.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.4.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.5.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.5.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.6.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.6.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.7.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.7.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.8.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.8.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.9.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.9.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b4 r6 l8 T10"><div><span>{{ playersB.10.0 }}</span></div></td>
+            <td colspan="2" class="b4 r6 T22"><div><span>{{ playersB.10.1 }}</span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r6"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r3"><div><span></span></div></td>
+            <td class="b4 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="19" class="b6 r6 l8 T10"><div><span>{{ playersB.11.0 }}</span></div></td>
+            <td colspan="2" class="b6 r6 T22"><div><span>{{ playersB.11.1 }}</span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r6"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r3"><div><span></span></div></td>
+            <td class="b6 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="9" class="b5 l8 T4"><div><span>ISTRUTTORE 1</span></div></td>
+            <td colspan="10" class="b5 r6 T4"><div><span>{{ coachesB.0.0 }}</span></div></td>
+            <td colspan="5" class="b5 T4"><div><span>CELLULARE</span></div></td>
+            <td colspan="7" class="b5 r6 T4"><div><span>{{ coachesB.0.1 }}</span></div></td>
+            <td colspan="2" class="b5 r4 T11"><div><span>FALLI</span></div></td>
+            <td class="b5 r3"><div><span></span></div></td>
+            <td class="b5 r6"><div><span></span></div></td>
+            <td colspan="5" class="b4 r6 T12"><div><span>SOSPENSIONI</span></div></td>
+            <td colspan="3" rowspan="2" class="b8 r4 T13"><div><span>PUNTI</span></div></td>
+            <td class="b3 r3 T14"><div><span>1</span></div></td>
+            <td class="b3 r3 T14"><div><span>2</span></div></td>
+            <td class="b3 r3 T14"><div><span>3</span></div></td>
+            <td class="b3 r3 T14"><div><span>4</span></div></td>
+            <td class="b3 r3 T14"><div><span>5</span></div></td>
+            <td class="b3 r3 T14"><div><span>6</span></div></td>
+            <td class="b3 r3 T14"><div><span>7</span></div></td>
+            <td class="b3 r3 T14"><div><span>8</span></div></td>
+            <td class="b3 r3 T14"><div><span>9</span></div></td>
+            <td class="b3 r3 T14"><div><span>10</span></div></td>
+            <td class="b3 r3 T14"><div><span>11</span></div></td>
+            <td class="b3 r3 T14"><div><span>12</span></div></td>
+            <td class="b3 r3 T14"><div><span>13</span></div></td>
+            <td class="b3 r3 T14"><div><span>14</span></div></td>
+            <td class="b3 r3 T14"><div><span>15</span></div></td>
+            <td class="b3 r3 T14"><div><span>16</span></div></td>
+            <td class="b3 r3 T14"><div><span>17</span></div></td>
+            <td class="b3 r3 T14"><div><span>18</span></div></td>
+            <td class="b3 r3 T14"><div><span>19</span></div></td>
+            <td class="b3 r3 T14"><div><span>20</span></div></td>
+            <td class="b3 r3 T14"><div><span>21</span></div></td>
+            <td class="b3 r3 T14"><div><span>22</span></div></td>
+            <td class="b3 r3 T14"><div><span>23</span></div></td>
+            <td class="b3 r3 T14"><div><span>24</span></div></td>
+            <td class="b3 r3 T14"><div><span>25</span></div></td>
+            <td class="b3 r3 T14"><div><span>26</span></div></td>
+            <td class="b3 r3 T14"><div><span>27</span></div></td>
+            <td class="b3 r3 T14"><div><span>28</span></div></td>
+            <td class="b3 r3 T14"><div><span>29</span></div></td>
+            <td class="b3 r3 T14"><div><span>30</span></div></td>
+            <td class="b3 r3 T14"><div><span>31</span></div></td>
+            <td class="b3 r3 T14"><div><span>32</span></div></td>
+            <td class="b3 r3 T14"><div><span>33</span></div></td>
+            <td class="b3 r3 T14"><div><span>34</span></div></td>
+            <td class="b3 r3 T14"><div><span>35</span></div></td>
+            <td class="b3 r3 T14"><div><span>36</span></div></td>
+            <td class="b3 r3 T14"><div><span>37</span></div></td>
+            <td class="b3 r3 T14"><div><span>38</span></div></td>
+            <td class="b3 r3 T14"><div><span>39</span></div></td>
+            <td class="b3 r3 T14"><div><span>40</span></div></td>
+            <td class="b3 r3 T14"><div><span>41</span></div></td>
+            <td class="b3 r3 T14"><div><span>42</span></div></td>
+            <td class="b3 r3 T14"><div><span>43</span></div></td>
+            <td class="b3 r3 T14"><div><span>44</span></div></td>
+            <td class="b3 r3 T14"><div><span>45</span></div></td>
+            <td class="b3 r3 T14"><div><span>46</span></div></td>
+            <td class="b3 r3 T14"><div><span>47</span></div></td>
+            <td class="b3 r3 T14"><div><span>48</span></div></td>
+            <td class="b3 r3 T14"><div><span>49</span></div></td>
+            <td class="b3 r3 T14"><div><span>50</span></div></td>
+            <td class="b3 r3 T14"><div><span>51</span></div></td>
+            <td class="b3 r3 T14"><div><span>52</span></div></td>
+            <td class="b3 r3 T14"><div><span>53</span></div></td>
+            <td class="b3 r3 T14"><div><span>54</span></div></td>
+            <td class="b3 r3 T14"><div><span>55</span></div></td>
+            <td class="b3 r3 T14"><div><span>56</span></div></td>
+            <td class="b3 r3 T14"><div><span>57</span></div></td>
+            <td class="b3 r3 T14"><div><span>58</span></div></td>
+            <td class="b3 r3 T14"><div><span>59</span></div></td>
+            <td class="b3 r8 T14"><div><span>60</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="9" class="b8 l8 T4"><div><span>ISTRUTTORE 2</span></div></td>
+            <td colspan="10" class="b8 r6 T4"><div><span>{{ coachesB.1.0 }}</span></div></td>
+            <td colspan="5" class="b8 T4"><div><span>CELLULARE</span></div></td>
+            <td colspan="7" class="b8 r6 T4"><div><span>{{ coachesB.1.1 }}</span></div></td>
+            <td colspan="2" class="b8 r4 T11"><div><span>FALLI</span></div></td>
+            <td class="b8 r3"><div><span></span></div></td>
+            <td class="b8 r6"><div><span></span></div></td>
+            <td class="b8 r3 T15"><div><span>1</span></div></td>
+            <td class="b8 r3 T15"><div><span>2</span></div></td>
+            <td class="b8 r3 T15"><div><span>3</span></div></td>
+            <td class="b8 r3 T15"><div><span>4</span></div></td>
+            <td class="b8 r6 T15"><div><span>5</span></div></td>
+            <td class="b8 r3 T14"><div><span>61</span></div></td>
+            <td class="b8 r3 T14"><div><span>62</span></div></td>
+            <td class="b8 r3 T14"><div><span>63</span></div></td>
+            <td class="b8 r3 T14"><div><span>64</span></div></td>
+            <td class="b8 r3 T14"><div><span>65</span></div></td>
+            <td class="b8 r3 T14"><div><span>66</span></div></td>
+            <td class="b8 r3 T14"><div><span>67</span></div></td>
+            <td class="b8 r3 T14"><div><span>68</span></div></td>
+            <td class="b8 r3 T14"><div><span>69</span></div></td>
+            <td class="b8 r3 T14"><div><span>70</span></div></td>
+            <td class="b8 r3 T14"><div><span>71</span></div></td>
+            <td class="b8 r3 T14"><div><span>72</span></div></td>
+            <td class="b8 r3 T14"><div><span>73</span></div></td>
+            <td class="b8 r3 T14"><div><span>74</span></div></td>
+            <td class="b8 r3 T14"><div><span>75</span></div></td>
+            <td class="b8 r3 T14"><div><span>76</span></div></td>
+            <td class="b8 r3 T14"><div><span>77</span></div></td>
+            <td class="b8 r3 T14"><div><span>78</span></div></td>
+            <td class="b8 r3 T14"><div><span>79</span></div></td>
+            <td class="b8 r3 T14"><div><span>80</span></div></td>
+            <td class="b8 r3 T14"><div><span>81</span></div></td>
+            <td class="b8 r3 T14"><div><span>82</span></div></td>
+            <td class="b8 r3 T14"><div><span>83</span></div></td>
+            <td class="b8 r3 T14"><div><span>84</span></div></td>
+            <td class="b8 r3 T14"><div><span>85</span></div></td>
+            <td class="b8 r3 T14"><div><span>86</span></div></td>
+            <td class="b8 r3 T14"><div><span>87</span></div></td>
+            <td class="b8 r3 T14"><div><span>88</span></div></td>
+            <td class="b8 r3 T14"><div><span>89</span></div></td>
+            <td class="b8 r3 T14"><div><span>90</span></div></td>
+            <td class="b8 r3 T14"><div><span>91</span></div></td>
+            <td class="b8 r3 T14"><div><span>92</span></div></td>
+            <td class="b8 r3 T14"><div><span>93</span></div></td>
+            <td class="b8 r3 T14"><div><span>94</span></div></td>
+            <td class="b8 r3 T14"><div><span>95</span></div></td>
+            <td class="b8 r3 T14"><div><span>96</span></div></td>
+            <td class="b8 r3 T14"><div><span>97</span></div></td>
+            <td class="b8 r3 T14"><div><span>98</span></div></td>
+            <td class="b8 r3 T14"><div><span>99</span></div></td>
+            <td class="b8 r3 T14"><div><span>100</span></div></td>
+            <td class="b8 r3 T14"><div><span>101</span></div></td>
+            <td class="b8 r3 T14"><div><span>102</span></div></td>
+            <td class="b8 r3 T14"><div><span>103</span></div></td>
+            <td class="b8 r3 T14"><div><span>104</span></div></td>
+            <td class="b8 r3 T14"><div><span>105</span></div></td>
+            <td class="b8 r3 T14"><div><span>106</span></div></td>
+            <td class="b8 r3 T14"><div><span>107</span></div></td>
+            <td class="b8 r3 T14"><div><span>108</span></div></td>
+            <td class="b8 r3 T14"><div><span>109</span></div></td>
+            <td class="b8 r3 T14"><div><span>110</span></div></td>
+            <td class="b8 r3 T14"><div><span>111</span></div></td>
+            <td class="b8 r3 T14"><div><span>112</span></div></td>
+            <td class="b8 r3 T14"><div><span>113</span></div></td>
+            <td class="b8 r3 T14"><div><span>114</span></div></td>
+            <td class="b8 r3 T14"><div><span>115</span></div></td>
+            <td class="b8 r3 T14"><div><span>116</span></div></td>
+            <td class="b8 r3 T14"><div><span>117</span></div></td>
+            <td class="b8 r3 T14"><div><span>118</span></div></td>
+            <td class="b8 r3 T14"><div><span>119</span></div></td>
+            <td class="b8 r8 T14"><div><span>120</span></div></td>
+          </tr>
+          <tr>
+            <td colspan="105" class="l8 r8"><div><span></span></div></td>
+          </tr>
+          <!-- RISULTATI PARTITA -->
+          <tr>
+            <td rowspan="7" class="l8"><div><span></span></div></td>
+            <td colspan="7" rowspan="7" class="t8 b8 l8 r6 T16"><div><span>PUNTI</span></div></td>
+            <td colspan="7" class="t8 b4 r5 T17"><div><span>PRIMO TEMPO</span></div></td>
+            <td class="t8 b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="t8 b4 r5"><div><span></span></div></td>
+            <td class="t8 b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="t8 b4 r6"><div><span></span></div></td>
+            <td colspan="11" rowspan="2" class="t8 T19"><div><span>PUNTEGGIO FINALE</span></div></td>
+            <td rowspan="7" class="l8 r8"><div><span></span></div></td>
+            <td colspan="7" rowspan="7" class="t8 b8 r6 T16"><div><span>FIRME</span></div></td>
+            <td colspan="16" class="t8 b4 r5 T20"><div><span>ISTRUTTORI</span></div></td>
+            <td colspan="16" class="t8 b4 r5 T20"><div><span>MINIARBITRI</span></div></td>
+            <td colspan="16" class="t8 b4 r5 T20"><div><span>SEGNAPUNTI</span></div></td>
+            <td colspan="16" class="t8 b4 r8 T20"><div><span>CRONOMETRISTA</span></div></td>
+            <td rowspan="7" class="r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b4 r5 T17"><div><span>SECONDO TEMPO</span></div></td>
+            <td class="b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b4 r5"><div><span></span></div></td>
+            <td class="b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b4 r6"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b4"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8 r5"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b4"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8 r5"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="3" class="b4"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8 r5"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="3" class="b4"><div><span></span></div></td>
+            <td colspan="2" rowspan="6" class="b8 r8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b4 r5 T17"><div><span>TERZO TEMPO</span></div></td>
+            <td class="b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b4 r5"><div><span></span></div></td>
+            <td class="b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b4 r6"><div><span></span></div></td>
+            <td rowspan="4"><div><span></span></div></td>
+            <td colspan="4" class="T21"><div><span>A</span></div></td>
+            <td rowspan="4"><div><span></span></div></td>
+            <td colspan="4" class="T21"><div><span>B</span></div></td>
+            <td rowspan="4"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b4 r5 T17"><div><span>QUARTO TEMPO</span></div></td>
+            <td class="b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b4 r5"><div><span></span></div></td>
+            <td class="b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b4 r6"><div><span></span></div></td>
+            <td colspan="4" rowspan="3" class="t5 b5 l5 r5"><div><span></span></div></td>
+            <td colspan="4" rowspan="3" class="t5 b5 l5 r5"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b4"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b4"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b4 r5 T17"><div><span>QUINTO TEMPO</span></div></td>
+            <td class="b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b4 r5"><div><span></span></div></td>
+            <td class="b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b4 r6"><div><span></span></div></td>
+            <td colspan="12" rowspan="3" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="3" class="b8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b4 r5 T17"><div><span>SESTO TEMPO</span></div></td>
+            <td class="b4 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b4 r5"><div><span></span></div></td>
+            <td class="b4 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b4 r6"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b8"><div><span></span></div></td>
+            <td colspan="12" rowspan="2" class="b8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="7" class="b8 r5 T17"><div><span>SUPPLEMENTARE</span></div></td>
+            <td class="b8 r4 T18"><div><span>A</span></div></td>
+            <td colspan="2" class="b8 r5"><div><span></span></div></td>
+            <td class="b8 r4 T18"><div><span>B</span></div></td>
+            <td colspan="2" class="b8 r6"><div><span></span></div></td>
+            <td colspan="11" class="b8"><div><span></span></div></td>
+          </tr>
+          <tr>
+            <td colspan="105" class="b8 l8 r8"><div><span></span></div></td>
+          </tr>
+        </table>
+      </tbody>
+    </page>
+  </body>
+</html>

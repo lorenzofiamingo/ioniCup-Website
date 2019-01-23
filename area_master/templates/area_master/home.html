@@ -1,0 +1,67 @@
+{% extends 'area_master/base_layout.html' %}
+
+{% block area_master %}
+  <h2>Torneo: {{ tournament }}</h2>
+  <form action="{% url 'game_schedule:schedule' %}" target="_blank" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="tournament_id" value="{{ tournament.id }}">
+    <button type="submit">Programma completo</button>
+  </form>
+  <form action="{% url 'area_master:modify_times' %}">
+    <button type="submit">Modifica orari</button>
+  </form>
+  <form action="{% url 'area_master:modify_stages' %}">
+    <input type="hidden" name="tournament_id" value="{{ tournament.id }}">
+    <button type="submit">Modifica fasi</button>
+  </form>
+  {% for stage in tournament.stages.all %}
+    <h2>{{ stage }}</h2>
+    <form action="{% url 'area_master:modify_groups' %}">
+      <input type="hidden" name="stage_id" value="{{ stage.id }}">
+      <button type="submit">Modifica gironi nella {{ stage }}</button>
+    </form>
+    {% if not forloop.first %}
+      <form action="{% url 'area_master:update_groups' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="stage_id" value="{{ stage.id }}">
+        <button type="submit">Assegna squadre nei gironi della {{ stage }}</button>
+      </form>
+    {% endif %}
+    {% for group in stage.groups.all %}
+      <h5>{{ group.name }}</h5>
+      <form action="{% url 'area_master:modify_scores' %}">
+        <input type="hidden" name="group_id" value="{{ group.id }}">
+        <button type="submit">Modifica manualmente {{ group.name }}</button>
+      </form>
+      <form action="{% url 'area_master:delete_scores' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="group_id" value="{{ group.id }}">
+        <button type="submit">Elimina gli score</button>
+      </form>
+      {% for score in group.scores.all %}
+        <p>{{ score.team }} punti:{{ score.score }}</p>
+      {% endfor %}
+      <form action="{% url 'area_master:update_matches' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="group_id" value="{{ group.id }}">
+        <button type="submit">Genera partite</button>
+      </form>
+      <form action="{% url 'area_master:delete_rounds' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="group_id" value="{{ group.id }}">
+        <button type="submit">Elimina le partite (e giornate)</button>
+      </form>
+      {% for round in group.rounds.all %}
+        <h6>{{ round }}</h6>
+        {% for match in round.matches.all %}
+          <p>{{ match }}</p>
+          <form action="{% url 'game_referee:referee' %}" target="_blank" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="match_id" value="{{ match.id }}">
+            <button type="submit">PDF referto</button>
+          </form>
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'area_master/base_layout.html' %}
+
+{% block area_master %}
+  <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Orari</h2>
+    {{ time_formset.management_form }}
+    {% for time_form in time_formset %}
+      {% if forloop.last %}
+        <h5>Nuovo time:</h5>
+      {% endif %}
+      {% for hidden in time_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% for field in time_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+    <form method="post">
+      {% csrf_token %}
+      <h2>Giorni</h2>
+      {{ day_formset.management_form }}
+      {% for day_form in day_formset %}
+        {% if forloop.last %}
+          <h5>Nuovo day:</h5>
+        {% endif %}
+        {% for hidden in day_form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+        <fieldset>
+          {% for field in day_form.visible_fields %}
+            {% if forloop.parentloop.last is False or forloop.last is False%}
+              {{ field.errors }} {{ field.help_text }}
+              {{ field.label_tag }} {{ field }}
+            {% endif %}
+          {% endfor %}
+        </fieldset>
+        <br>
+      {% endfor %}
+      <br>
+      <input type="submit" value="Aggiungi/Salva">
+      <input type="submit" name="button" value="Salva ed esci">
+      </form>
+
+{% endblock %}

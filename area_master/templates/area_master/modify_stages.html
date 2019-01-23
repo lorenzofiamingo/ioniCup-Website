@@ -1,0 +1,35 @@
+{% extends 'area_master/base_layout.html' %}
+
+{% block area_master %}
+  <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Fasi</h2>
+    {{ stage_formset.management_form }}
+    {% for stage_form in stage_formset %}
+      {% if forloop.last %}
+        <h5>Nuova fase:</h5>
+      {% endif %}
+      {% for hidden in stage_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% if not forloop.last %}
+          <legend>{{ stage_form.name.value }}</legend>
+        {% endif %}
+        {% for field in stage_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+{% endblock %}

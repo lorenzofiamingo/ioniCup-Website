@@ -1,0 +1,57 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Programma</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'schedule.css' %}"/>
+    <script type="text/javascript" src="{% static 'html2canvas.js' %}"></script>
+    <script type="text/javascript" src="{% static 'FileSaver.js' %}"></script>
+    <script type="text/javascript" src="{% static 'schedule.js' %}"></script>
+  </head>
+  <body>
+    <page size="A4">
+      <table id="capture">
+        <tr>
+          <td colspan="13" class="logo"><div><img src="{% static 'logo.png' %}"></div></td>
+        </tr>
+        {% for time in times %}
+          {% if time.day != time.precedent_time.day %}
+            <tr>
+              <td colspan="13">{{time.day}}</td>
+            </tr>
+          {% endif %}
+          <tr>
+            <td>
+              {{ time }}
+            </td>
+            <td colspan="12">
+              {% if time.event %}
+                {{ time.event }}
+              {% else %}
+                <table>
+                  <tr>
+                    {% for match in time.matches.all %}
+                    <td colspan="5" id="match">
+                      <table>
+                        <tr>
+                          <td colspan="1">Nº {{match.number}}</td>
+                          <td colspan="1">Campo {{ match.court }}</td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">{{ match }}</td>
+                        </tr>
+                      </table>
+                    </td>
+                    {% endfor %}
+                  </tr>
+                </table>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </page>
+  </body>
+</html>

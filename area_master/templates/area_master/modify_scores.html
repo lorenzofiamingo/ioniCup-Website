@@ -1,0 +1,32 @@
+{% extends 'area_master/base_layout.html' %}
+
+{% block area_master %}
+  <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Score</h2>
+    {{ score_formset.management_form }}
+    {% for score_form in score_formset %}
+      {% if forloop.last %}
+        <h5>Nuovo score:</h5>
+      {% endif %}
+      {% for hidden in score_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% for field in score_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+{% endblock %}

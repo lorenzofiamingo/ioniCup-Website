@@ -1,0 +1,35 @@
+{% extends 'area_master/base_layout.html' %}
+
+{% block area_master %}
+  <h4>Ricordati di premere Aggiorna o Aggiungi altrimenti le modifiche non verranno salvate</h4>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Gironi</h2>
+    {{ group_formset.management_form }}
+    {% for group_form in group_formset %}
+      {% if forloop.last %}
+        <h5>Nuovo girone:</h5>
+      {% endif %}
+      {% for hidden in group_form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      <fieldset>
+        {% if not forloop.last %}
+          <legend>{{ group_form.name.value }}</legend>
+        {% endif %}
+        {% for field in group_form.visible_fields %}
+          {% if forloop.parentloop.last is False or forloop.last is False%}
+            {{ field.errors }} {{ field.help_text }}
+            {{ field.label_tag }} {{ field }}
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+      <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Aggiungi/Salva">
+    <input type="submit" name="button" value="Salva ed esci">
+    </form>
+
+{% endblock %}
