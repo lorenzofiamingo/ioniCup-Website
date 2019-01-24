@@ -70,10 +70,10 @@ if os.getenv('GAE_APPLICATION', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-            'NAME': '[YOUR-DATABASE]', }}
+            'HOST': '/cloudsql/ionicup:europe-west1:ionicup-instance',
+            'NAME': 'ionicup',
+            'USER': 'ionicup',
+            'PASSWORD': 'ionicup', }}
 else:
     # Running locally so connect to either a local MySQL instance or connect to
     # Cloud SQL via the proxy. To start the proxy via command line:
@@ -86,9 +86,9 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': '[YOUR-DATABASE]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]', }}
+            'NAME': 'ionicup',
+            'USER': 'ionicup',
+            'PASSWORD': 'ionicup', }}
 
 
 # Password validation
