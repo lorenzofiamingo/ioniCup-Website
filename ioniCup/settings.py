@@ -61,6 +61,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ioniCup.wsgi.application'
 
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
