@@ -1,0 +1,45 @@
+@font-face {
+  font-family: Arial;
+  src: url(ArialRoundedBold.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  color: rgb(35, 40, 80);
+  border-color: rgb(35, 40, 80);
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+#capture {
+  height: 100%;
+}
+#match {
+  border: 3px solid;
+}
+td {
+  height: 30px
+}
+
+td.logo div {
+  height: 20mm;
+}
+td.logo img {
+  height: 100%;
+}
+
+page[size="A4"] {
+  background: white;
+  width: 297mm;
+  height: 210mm;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}

@@ -1,0 +1,14 @@
+@font-face {
+  font-family: Arial;
+  src: url(ArialRoundedBold.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial;
+  font-weight: normal;
+  color: rgb(35, 40, 80);
+  border-color: rgb(35, 40, 80);
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px
+}
