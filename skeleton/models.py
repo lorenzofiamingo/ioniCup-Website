@@ -57,7 +57,7 @@ class Team(models.Model):
 
 class AllStarGame(models.Model):
     name = models.CharField(max_length=16)
-    rules = models.CharField(max_length=99999, blank=True)
+    rules = models.CharField(max_length=999, blank=True)
     slug = models.SlugField(blank=True)
 
     def save(self, *args, **kwargs):
