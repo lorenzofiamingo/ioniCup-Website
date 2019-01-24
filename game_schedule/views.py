@@ -32,7 +32,7 @@ def schedule(request):
                     if group:
                         for match in group[0]:
                             matches.append(match)
-                    group.pop(0)
+                        group.pop(0)
 
         # qui si assegnano tempi, campi e numeri alle partite
         try:
