@@ -1,5 +1,7 @@
 # [START django_app]
 runtime: python37
+env: standard
+entrypoint: gunicorn -b :$PORT ionicup.wsgi
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static
