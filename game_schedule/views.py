@@ -29,8 +29,9 @@ def schedule(request):
             test = temp_groups
             while not isListEmpty(temp_groups):
                 for group in temp_groups:
-                    for match in group[0]:
-                        matches.append(match)
+                    if group[0]:
+                        for match in group[0]:
+                            matches.append(match)
                     group.pop(0)
 
         # qui si assegnano tempi, campi e numeri alle partite
