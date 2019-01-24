@@ -29,7 +29,7 @@ def schedule(request):
             test = temp_groups
             while not isListEmpty(temp_groups):
                 for group in temp_groups:
-                    if group[0]:
+                    if group:
                         for match in group[0]:
                             matches.append(match)
                     group.pop(0)
