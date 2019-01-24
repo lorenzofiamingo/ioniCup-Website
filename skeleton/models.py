@@ -38,7 +38,7 @@ class Team(models.Model):
         ('Azure', 'Azzurro'),
         ('Pink', 'Rosa'))
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=True, related_name='teams')
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=999)
     short_name = models.CharField(max_length=12, blank=True)
     city = models.CharField(max_length=36, blank=True)
     slug = models.SlugField(blank=True)
