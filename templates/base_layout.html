@@ -8,6 +8,8 @@
     {% block stylesheet %}
       <link rel="stylesheet" type="text/css" href="{% static 'base_layout.css' %}"/>
     {% endblock %}
+    {% block script %}
+    {% endblock %}
   </head>
   <body>
 
@@ -32,6 +34,8 @@
     <div class="content">
       {% block content %}
         <h1>HOME</h1>
+        <iframe height="600px" src="scoreboard/show/1" name="iframe_a"></iframe>
+        <p><a href="{% url 'area_scorekeeper:home' %}" target="iframe_a">W3Schools.com</a></p>
       {% endblock %}
     </div>
 
@@ -40,9 +44,6 @@
       <h4>COPYRIGHT © 2018 IONICUP. TUTTI I DIRITTI RISERVATI.</h4>
       {% endblock %}
     </footer>
-
-    {% block script %}
-    {% endblock %}
 
   </body>
 </html>

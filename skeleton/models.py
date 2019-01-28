@@ -129,7 +129,7 @@ class Round(models.Model):  # Giornata
 
 
 class Match(models.Model):  # Partita
-    SIXTHS = (('1', 'Primo'), ('2', 'Secondo'), ('3', 'Terzo'), ('4', 'Quarto'), ('5', 'Quinto'), ('6', 'Sesto'), ('7', 'Supplementare'))
+    SIXTHS = (('1', 'Primo Tempo'), ('2', 'Secondo Tempo'), ('3', 'Terzo Tempo'), ('4', 'Quarto Tempo'), ('5', 'Quinto Tempo'), ('6', 'Sesto Tempo'), ('7', 'Supplementare'))
     COLORS = (
         ('Black', 'Nero'),
         ('Silver', 'Argento'),

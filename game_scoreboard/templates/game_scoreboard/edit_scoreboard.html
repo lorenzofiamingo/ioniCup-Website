@@ -9,23 +9,27 @@
   </style>
 {% endblock %}
 
+{% block script %}
+  <script src="{% static 'script/stopWatch.js' %}"></script>
+{% endblock %}
+
+
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
 {% block content %}
   <nav>
     <div class="container">
-      <form method="post">
+      <form id="form" method="post">
         {% csrf_token %}
         <div class="grid-container">
           {{ match_form.id }}
-          <input type="submit" value="Aggiungi/Salva">
           <div class="name name-A">{{ match.team_A.short_name }}</div>
           <div class="name name-B">{{ match.team_B.short_name }}</div>
-          <div class="city city-A">Maglia: {{ match_form.sb_color_A }}</div>
-          <div class="city city-B">Maglia: {{ match_form.sb_color_B }}</div>
-          <div class="current-sixth"><span>PRIMO TEMPO</span></div>
-          <div class="time"><span>{{ match_form.sb_timer }}</span></div>
+          <div class="color color-A">Maglia: {{ match_form.sb_color_A }}</div>
+          <div class="color color-B">Maglia: {{ match_form.sb_color_B }}</div>
+          <div class="current-sixth"><span>{{ match_form.sb_current_sixth }}</span></div>
+          <div id="timer">{{ match_form.sb_timer }}</div>
           <div class="label label-1"><span>PARZIALE</span></div>
           <div class="partial partial-A"><div>{{ match_form.sb_partial_A }}</div></div>
           <div class="partial partial-B"><div>{{ match_form.sb_partial_B }}</div></div>
@@ -51,6 +55,9 @@
           <div class="sixth-B n5-sixth-B">{{ match_form.sb_5_sixth_B }}</div>
           <div class="sixth-B n6-sixth-B">{{ match_form.sb_6_sixth_B }}</div>
           <div class="sixth-B n7-sixth-B">{{ match_form.sb_7_sixth_B }}</div>
+          <input class="button-save" type="submit" value="Salva">
+          <input id="button-start-stop" type="button" value="Start">
+          <input id="button-reset" type="button" value="Reset">
         </div>
       </form>
     </div>

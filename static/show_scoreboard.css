@@ -20,10 +20,10 @@
   height: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 6fr 20fr 8fr 4fr 10fr 17fr 6fr repeat(7, 4fr);
+  grid-template-rows: 20fr 6fr 8fr 4fr 10fr 17fr 6fr repeat(7, 4fr);
   grid-template-areas:
+    'timer timer timer timer timer timer'
     'current-sixth current-sixth current-sixth current-sixth current-sixth current-sixth'
-    'time time time time time time'
     'name-A name-A name-A name-B name-B name-B'
     'city-A city-A city-A city-B city-B city-B'
     'label-1 label-1 label-1 label-1 label-1 label-1'
@@ -43,7 +43,7 @@
 .city-A { grid-area: city-A; }
 .city-B { grid-area: city-B; }
 .current-sixth { grid-area: current-sixth; }
-.time { grid-area: time; }
+#timer { grid-area: timer; }
 .label-1 { grid-area: label-1; }
 .partial-A { grid-area: partial-A; }
 .partial-B { grid-area: partial-B; }
@@ -91,19 +91,19 @@
 .current-sixth {
   font-size: 3vh;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
-.time {
-  font-size: 14vh;
+#timer {
+  font-size: 16vh;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .label-1 {
   font-size: 4vh;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .label-2 {
@@ -115,7 +115,7 @@
 .partial {
   font-size: 10vh;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .sixth-label {
@@ -137,6 +137,12 @@
 }
 
 span {
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  width: 90%;
+  padding: 2px;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50px;
+
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 6px;
+  -moz-box-shadow: rgba(0,0,0,0.3) 0 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 3px 6px;
 }
